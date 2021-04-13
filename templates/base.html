@@ -1,0 +1,129 @@
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+
+    {% load django_simple_bulma %}
+    {% bulma %}
+    {% font_awesome %}
+
+    <style>
+        .nested.dropdown:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .nested.dropdown .dropdown-menu {
+            top: -12px;
+            margin-left: 100%;
+        }
+
+        .nested.dropdown .dropdown-trigger button::after {}
+
+        .nested.dropdown .dropdown-trigger button {
+            padding: 0px 0px;
+            border: 0px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+            {% block style %}
+
+            {% endblock style %}
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-4" href="{% url 'store:home' %}">
+                    Store
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">
+                        Home
+                    </a>
+
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Categories
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            {% for category in categories %}
+                            <a class="navbar-item">
+                                {{ category }}
+                            </a>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light">
+                                Log in
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock content %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+
+                // Add a click event on each of them
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+
+                        // Get the target from the "data-target" attribute
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+
+                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+
+                    });
+                });
+            }
+
+            {% block script %} 
+            {% endblock script %}
+        });
+    </script>
+</body>
+
+</html>
