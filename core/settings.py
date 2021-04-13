@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'django_simple_bulma',
     'mptt',
+
+    'store.apps.StoreConfig',
 ]
 
 MIDDLEWARE = [
